@@ -3,8 +3,9 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Inventor } from "@/lib/inventors";
 import { cn } from "@/lib/utils";
+import type { ReactNode } from "react";
 
-export function PageHero({ eyebrow, title, children, dark = false }: { eyebrow: string; title: string; children?: React.ReactNode; dark?: boolean }) {
+export function PageHero({ eyebrow, title, children, dark = false }: { eyebrow: string; title: string; children?: ReactNode; dark?: boolean }) {
   return <section className={cn("paper-grid px-5 pb-16 pt-36 lg:px-10 lg:pb-24 lg:pt-48", dark && "bg-charcoal text-cream")}><div className="mx-auto max-w-[1400px]"><p className="eyebrow text-gold">{eyebrow}</p><h1 className="mt-5 max-w-5xl font-display text-5xl leading-[0.95] sm:text-7xl lg:text-8xl">{title}</h1>{children && <div className={cn("mt-7 max-w-2xl text-lg leading-8", dark ? "text-cream/70" : "text-muted-foreground")}>{children}</div>}</div></section>;
 }
 
