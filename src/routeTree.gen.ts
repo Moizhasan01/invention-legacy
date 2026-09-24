@@ -10,33 +10,91 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthorRouteImport } from './routes/author'
+import { Route as BookRouteImport } from './routes/book'
+import { Route as InventorsRouteImport } from './routes/inventors'
+import { Route as TimelineRouteImport } from './routes/timeline'
+import { Route as InventorsSlugRouteImport } from './routes/inventors.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthorRoute = AuthorRouteImport.update({
+  id: '/author',
+  path: '/author',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookRoute = BookRouteImport.update({
+  id: '/book',
+  path: '/book',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventorsRoute = InventorsRouteImport.update({
+  id: '/inventors',
+  path: '/inventors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimelineRoute = TimelineRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventorsSlugRoute = InventorsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => InventorsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/author': typeof AuthorRoute
+  '/book': typeof BookRoute
+  '/inventors': typeof InventorsRouteWithChildren
+  '/timeline': typeof TimelineRoute
+  '/inventors/$slug': typeof InventorsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/author': typeof AuthorRoute
+  '/book': typeof BookRoute
+  '/inventors': typeof InventorsRouteWithChildren
+  '/timeline': typeof TimelineRoute
+  '/inventors/$slug': typeof InventorsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/author': typeof AuthorRoute
+  '/book': typeof BookRoute
+  '/inventors': typeof InventorsRouteWithChildren
+  '/timeline': typeof TimelineRoute
+  '/inventors/$slug': typeof InventorsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/author' | '/book' | '/inventors' | '/timeline' | '/inventors/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    '/' | '/author' | '/book' | '/inventors' | '/timeline' | '/inventors/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/author'
+    | '/book'
+    | '/inventors'
+    | '/timeline'
+    | '/inventors/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthorRoute: typeof AuthorRoute
+  BookRoute: typeof BookRoute
+  InventorsRoute: typeof InventorsRouteWithChildren
+  TimelineRoute: typeof TimelineRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +106,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/author': {
+      id: '/author'
+      path: '/author'
+      fullPath: '/author'
+      preLoaderRoute: typeof AuthorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/book': {
+      id: '/book'
+      path: '/book'
+      fullPath: '/book'
+      preLoaderRoute: typeof BookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventors': {
+      id: '/inventors'
+      path: '/inventors'
+      fullPath: '/inventors'
+      preLoaderRoute: typeof InventorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timeline': {
+      id: '/timeline'
+      path: '/timeline'
+      fullPath: '/timeline'
+      preLoaderRoute: typeof TimelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventors/$slug': {
+      id: '/inventors/$slug'
+      path: '/$slug'
+      fullPath: '/inventors/$slug'
+      preLoaderRoute: typeof InventorsSlugRouteImport
+      parentRoute: typeof InventorsRoute
+    }
   }
 }
 
+interface InventorsRouteChildren {
+  InventorsSlugRoute: typeof InventorsSlugRoute
+}
+
+const InventorsRouteChildren: InventorsRouteChildren = {
+  InventorsSlugRoute: InventorsSlugRoute,
+}
+
+const InventorsRouteWithChildren = InventorsRoute._addFileChildren(
+  InventorsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthorRoute: AuthorRoute,
+  BookRoute: BookRoute,
+  InventorsRoute: InventorsRouteWithChildren,
+  TimelineRoute: TimelineRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
