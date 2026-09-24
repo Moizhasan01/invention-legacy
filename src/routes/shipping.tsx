@@ -1,0 +1,4 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { PageHero } from "@/components/site/Editorial";
+import { pageHead } from "@/lib/seo";
+export const Route=createFileRoute("/shipping")({head:()=>pageHead("Shipping — James E. Craver","Shipping regions, methods, rates, and timing are awaiting author approval.","/shipping"),component:()=> <><PageHero eyebrow="Store policy" title="Shipping"><p>Shipping regions, methods, rates, and timing are awaiting author approval.</p></PageHero><section className="px-5 py-20 lg:px-10"><div className="mx-auto max-w-3xl border-l border-gold pl-7"><h2 className="font-display text-3xl">Policy forthcoming</h2><p className="mt-5 leading-7 text-muted-foreground">No terms have been invented. This page will be updated with the author’s approved policy before ordering is activated.</p></div></section></>});

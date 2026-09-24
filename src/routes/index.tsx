@@ -1,24 +1,50 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, BookOpen, Search, MoveRight } from "lucide-react";
+import { BookCover } from "@/components/site/BookCover";
+import { InventorCard, SectionHeading } from "@/components/site/Editorial";
+import { Button } from "@/components/ui/button";
+import { featuredInventors, inventors } from "@/lib/inventors";
+import { pageHead } from "@/lib/seo";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+const description = "Explore Beyond the Echoes of Black History: Great Black Inventions by James E. Craver—a documented chronology of Black American innovation.";
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({ ...pageHead("Beyond the Echoes of Black History — James E. Craver", description, "/"), scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context":"https://schema.org", "@type":"Book", name:"Beyond the Echoes of Black History", alternateName:"Great Black Inventions", author:{"@type":"Person",name:"James E. Craver"}, datePublished:"2026", inLanguage:"en" }) }] }),
+  component: HomePage,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+function HomePage() {
+  return <>
+    <section className="paper-texture relative min-h-[900px] overflow-hidden bg-parchment px-5 pb-20 pt-32 lg:min-h-[840px] lg:px-10 lg:pt-36">
+      <div className="pointer-events-none absolute -left-24 top-12 h-[760px] w-[760px] rounded-full border border-bronze/15" aria-hidden="true" />
+      <div className="pointer-events-none absolute left-12 top-40 h-48 w-48 border border-bronze/15 [background-image:repeating-radial-gradient(circle_at_center,transparent_0_14px,var(--color-bronze)_15px_16px)] opacity-10" aria-hidden="true" />
+      <div className="relative mx-auto grid max-w-[1400px] items-center gap-14 lg:grid-cols-[1.08fr_.92fr]">
+        <div className="reveal max-w-3xl">
+          <p className="eyebrow max-w-lg leading-5 text-bronze">The inventions. The struggles. The legacy. The impact.</p>
+          <h1 className="mt-7 font-display text-[clamp(3rem,7.2vw,7.2rem)] leading-[.88] text-charcoal">Beyond the<br /><span className="text-bronze">Echoes</span><br />of Black History</h1>
+          <div className="mt-7 flex items-center gap-4"><span className="h-px w-14 bg-gold" /><p className="text-xs font-bold uppercase tracking-[.25em]">Great Black Inventions</p></div>
+          <p className="mt-3 font-display text-lg italic">By James E. Craver</p>
+          <p className="mt-7 max-w-xl text-base leading-7 text-muted-foreground">A sweeping historical record of Black American innovation, invention, scientific achievement, engineering, and perseverance across generations.</p>
+          <div className="mt-8 flex flex-wrap gap-3"><Button asChild size="lg" className="h-12 rounded-none px-7"><Link to="/shop">Buy the Book <ArrowRight /></Link></Button><Button asChild size="lg" variant="outline" className="h-12 rounded-none border-foreground/30 bg-transparent px-7"><Link to="/inventors">Explore the Inventors</Link></Button></div>
+        </div>
+        <div className="relative mx-auto w-full max-w-[440px] lg:max-w-[500px]"><div className="float-slow"><BookCover priority /></div><p className="mt-9 text-center text-[10px] font-bold uppercase tracking-[.22em] text-muted-foreground">210 documented profiles · 1753—2026</p></div>
+      </div>
+    </section>
+
+    <section className="bg-cream px-5 py-20 lg:px-10 lg:py-32"><div className="mx-auto grid max-w-[1250px] gap-14 lg:grid-cols-[.9fr_1.1fr] lg:gap-24"><SectionHeading eyebrow="A record of innovation" title="The inventions are only the beginning." /><div className="border-l border-gold pl-7 text-lg leading-8 text-muted-foreground lg:pl-12"><p>The manuscript places technical achievement inside its historical record: the work, persistence, recognition, and consequence surrounding each contribution.</p><p className="mt-6">It distinguishes a documented invention or construction from later interpretation, preserving uncertainty where the surviving evidence requires it.</p><Button asChild variant="link" className="mt-7 h-auto p-0 text-xs uppercase tracking-[.16em]"><Link to="/book">Read about the book <ArrowRight /></Link></Button></div></div></section>
+
+    <section className="paper-grid bg-charcoal px-5 py-20 text-cream lg:px-10 lg:py-28"><div className="mx-auto max-w-[1400px]"><p className="eyebrow text-gold">The scale of the record</p><div className="mt-10 grid border-y border-cream/15 sm:grid-cols-3"><Stat value="210" label="Profile entries" /><Stat value="1753" label="Chronology begins" /><Stat value="2026" label="Record extends through" /></div><p className="mt-8 max-w-2xl text-sm leading-6 text-cream/55">Black American inventors, innovators, scientists, engineers, and technical contributors—presented through the chronology assembled in the manuscript.</p></div></section>
+
+    <section className="px-5 py-20 lg:px-10 lg:py-32"><div className="mx-auto max-w-[1400px]"><div className="flex flex-col gap-7 sm:flex-row sm:items-end sm:justify-between"><SectionHeading eyebrow="The people behind the inventions" title="Lives of inquiry and resolve." description="Selected profiles from the manuscript’s documented chronology." /><Button asChild variant="outline" className="rounded-none"><Link to="/inventors">View all 210 <ArrowRight /></Link></Button></div><div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">{featuredInventors.slice(0,8).map(i=><InventorCard key={i.profile} inventor={i}/>)}</div></div></section>
+
+    <section className="bg-parchment px-5 py-20 lg:px-10 lg:py-32"><div className="mx-auto max-w-[1400px]"><SectionHeading eyebrow="An evolving record" title="From 1753 to today." description="Move through selected chronology anchors from independent workmanship to contemporary science and engineering." /><div className="mt-14 overflow-x-auto pb-5"><div className="flex min-w-max gap-0">{inventors.filter(i=>[1,4,17,50,60,78,80].includes(i.profile)).map((i,index)=><Link key={i.profile} to="/inventors/$slug" params={{slug:i.slug}} className="group relative w-64 border-t border-bronze px-5 pt-8"><span className="absolute -top-1.5 left-5 size-3 rounded-full border-2 border-parchment bg-gold transition-transform group-hover:scale-150"/><p className="font-display text-3xl text-bronze">{i.year}</p><h3 className="mt-3 font-display text-xl">{i.name}</h3><p className="mt-3 text-xs uppercase tracking-[.14em] text-muted-foreground">Profile {String(i.profile).padStart(2,'0')}</p></Link>)}</div></div><Button asChild className="mt-8 rounded-none"><Link to="/timeline">Enter the Timeline <MoveRight /></Link></Button></div></section>
+
+    <section className="px-5 py-20 lg:px-10 lg:py-32"><div className="mx-auto grid max-w-[1250px] gap-12 lg:grid-cols-2 lg:items-center"><div><SectionHeading eyebrow="The invention archive" title="Explore the inventors." description="Search 210 names, filter by chronology, and open individual profiles drawn from the manuscript." /><div className="mt-8 flex gap-3"><Button asChild className="rounded-none"><Link to="/inventors"><Search /> Search the Archive</Link></Button><Button asChild variant="outline" className="rounded-none"><Link to="/timeline">View Timeline</Link></Button></div></div><div className="paper-grid border border-border bg-card p-8 sm:p-12"><p className="eyebrow text-gold">Historical approach</p><blockquote className="mt-5 font-display text-2xl leading-relaxed">“The strongest record is the one that preserves what the evidence can—and cannot—support.”</blockquote><p className="mt-6 text-sm leading-6 text-muted-foreground">Banneker’s clock is treated as an exceptional documented construction, not misrepresented as the invention of the clock itself. That same care guides the archive.</p></div></div></section>
+
+    <section className="bg-charcoal px-5 py-20 text-cream lg:px-10 lg:py-28"><div className="mx-auto grid max-w-[1200px] gap-14 md:grid-cols-[300px_1fr] md:items-center"><BookCover className="mx-auto w-56 md:w-72" /><div><p className="eyebrow text-gold">Inside the book</p><h2 className="mt-4 font-display text-4xl sm:text-6xl">History, examined profile by profile.</h2><p className="mt-6 max-w-2xl leading-7 text-cream/65">Read the opening manuscript pages and see how chronology, technical contribution, status, place, and archival context are brought together.</p><Button asChild className="mt-8 rounded-none bg-gold text-charcoal hover:bg-gold/90"><Link to="/book"><BookOpen /> Explore the Book</Link></Button></div></div></section>
+
+    <section className="px-5 py-20 lg:px-10 lg:py-32"><div className="mx-auto grid max-w-[1200px] gap-12 lg:grid-cols-[.75fr_1.25fr]"><div className="flex min-h-80 items-end border border-border bg-muted p-7"><p className="eyebrow text-muted-foreground">Author portrait forthcoming</p></div><div className="lg:py-8"><SectionHeading eyebrow="About the author" title="James E. Craver" description="Author of Beyond the Echoes of Black History: Great Black Inventions. An approved biography and portrait have not yet been supplied; this page is ready to expand when they are." /><Button asChild variant="outline" className="mt-8 rounded-none"><Link to="/author">Meet the Author <ArrowRight /></Link></Button></div></div></section>
+
+    <section className="paper-texture bg-bronze px-5 py-20 text-cream lg:px-10 lg:py-28"><div className="mx-auto flex max-w-[1200px] flex-col items-start justify-between gap-10 lg:flex-row lg:items-end"><div><p className="eyebrow text-cream/65">Bring the history home</p><h2 className="mt-4 max-w-3xl font-display text-5xl leading-tight sm:text-7xl">A record built to be read, remembered, and shared.</h2></div><div className="flex shrink-0 flex-wrap gap-3"><Button asChild size="lg" className="h-12 rounded-none bg-cream text-charcoal hover:bg-cream/90"><Link to="/shop">Buy the Book</Link></Button><Button asChild size="lg" variant="outline" className="h-12 rounded-none border-cream/40 bg-transparent text-cream hover:bg-cream hover:text-charcoal"><Link to="/book">Learn More</Link></Button></div></div></section>
+  </>;
 }
+function Stat({value,label}:{value:string;label:string}){return <div className="border-cream/15 px-5 py-10 sm:border-r sm:last:border-r-0 lg:px-10"><p className="font-display text-6xl text-gold lg:text-8xl">{value}</p><p className="mt-3 text-xs uppercase tracking-[.18em] text-cream/60">{label}</p></div>}
