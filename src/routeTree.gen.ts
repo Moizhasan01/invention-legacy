@@ -12,7 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthorRouteImport } from './routes/author'
 import { Route as BookRouteImport } from './routes/book'
+import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as InventorsRouteImport } from './routes/inventors'
+import { Route as ShopRouteImport } from './routes/shop'
 import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as InventorsSlugRouteImport } from './routes/inventors.$slug'
 
@@ -31,9 +34,24 @@ const BookRoute = BookRouteImport.update({
   path: '/book',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InventorsRoute = InventorsRouteImport.update({
   id: '/inventors',
   path: '/inventors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TimelineRoute = TimelineRouteImport.update({
@@ -51,7 +69,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/author': typeof AuthorRoute
   '/book': typeof BookRoute
+  '/checkout': typeof CheckoutRoute
+  '/contact': typeof ContactRoute
   '/inventors': typeof InventorsRouteWithChildren
+  '/shop': typeof ShopRoute
   '/timeline': typeof TimelineRoute
   '/inventors/$slug': typeof InventorsSlugRoute
 }
@@ -59,7 +80,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/author': typeof AuthorRoute
   '/book': typeof BookRoute
+  '/checkout': typeof CheckoutRoute
+  '/contact': typeof ContactRoute
   '/inventors': typeof InventorsRouteWithChildren
+  '/shop': typeof ShopRoute
   '/timeline': typeof TimelineRoute
   '/inventors/$slug': typeof InventorsSlugRoute
 }
@@ -68,23 +92,45 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/author': typeof AuthorRoute
   '/book': typeof BookRoute
+  '/checkout': typeof CheckoutRoute
+  '/contact': typeof ContactRoute
   '/inventors': typeof InventorsRouteWithChildren
+  '/shop': typeof ShopRoute
   '/timeline': typeof TimelineRoute
   '/inventors/$slug': typeof InventorsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/author' | '/book' | '/inventors' | '/timeline' | '/inventors/$slug'
+    | '/'
+    | '/author'
+    | '/book'
+    | '/checkout'
+    | '/contact'
+    | '/inventors'
+    | '/shop'
+    | '/timeline'
+    | '/inventors/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/author' | '/book' | '/inventors' | '/timeline' | '/inventors/$slug'
+    | '/'
+    | '/author'
+    | '/book'
+    | '/checkout'
+    | '/contact'
+    | '/inventors'
+    | '/shop'
+    | '/timeline'
+    | '/inventors/$slug'
   id:
     | '__root__'
     | '/'
     | '/author'
     | '/book'
+    | '/checkout'
+    | '/contact'
     | '/inventors'
+    | '/shop'
     | '/timeline'
     | '/inventors/$slug'
   fileRoutesById: FileRoutesById
@@ -93,7 +139,10 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthorRoute: typeof AuthorRoute
   BookRoute: typeof BookRoute
+  CheckoutRoute: typeof CheckoutRoute
+  ContactRoute: typeof ContactRoute
   InventorsRoute: typeof InventorsRouteWithChildren
+  ShopRoute: typeof ShopRoute
   TimelineRoute: typeof TimelineRoute
 }
 
@@ -120,11 +169,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/inventors': {
       id: '/inventors'
       path: '/inventors'
       fullPath: '/inventors'
       preLoaderRoute: typeof InventorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/timeline': {
@@ -160,7 +230,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthorRoute: AuthorRoute,
   BookRoute: BookRoute,
+  CheckoutRoute: CheckoutRoute,
+  ContactRoute: ContactRoute,
   InventorsRoute: InventorsRouteWithChildren,
+  ShopRoute: ShopRoute,
   TimelineRoute: TimelineRoute,
 }
 export const routeTree = rootRouteImport
