@@ -15,7 +15,12 @@ import { Route as BookRouteImport } from './routes/book'
 import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as InventorsRouteImport } from './routes/inventors'
+import { Route as JournalRouteImport } from './routes/journal'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
+import { Route as ShippingRouteImport } from './routes/shipping'
 import { Route as ShopRouteImport } from './routes/shop'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as InventorsSlugRouteImport } from './routes/inventors.$slug'
 
@@ -49,9 +54,34 @@ const InventorsRoute = InventorsRouteImport.update({
   path: '/inventors',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JournalRoute = JournalRouteImport.update({
+  id: '/journal',
+  path: '/journal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RefundPolicyRoute = RefundPolicyRouteImport.update({
+  id: '/refund-policy',
+  path: '/refund-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShippingRoute = ShippingRouteImport.update({
+  id: '/shipping',
+  path: '/shipping',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TimelineRoute = TimelineRouteImport.update({
@@ -72,7 +102,12 @@ export interface FileRoutesByFullPath {
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
   '/inventors': typeof InventorsRouteWithChildren
+  '/journal': typeof JournalRoute
+  '/privacy': typeof PrivacyRoute
+  '/refund-policy': typeof RefundPolicyRoute
+  '/shipping': typeof ShippingRoute
   '/shop': typeof ShopRoute
+  '/terms': typeof TermsRoute
   '/timeline': typeof TimelineRoute
   '/inventors/$slug': typeof InventorsSlugRoute
 }
@@ -83,7 +118,12 @@ export interface FileRoutesByTo {
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
   '/inventors': typeof InventorsRouteWithChildren
+  '/journal': typeof JournalRoute
+  '/privacy': typeof PrivacyRoute
+  '/refund-policy': typeof RefundPolicyRoute
+  '/shipping': typeof ShippingRoute
   '/shop': typeof ShopRoute
+  '/terms': typeof TermsRoute
   '/timeline': typeof TimelineRoute
   '/inventors/$slug': typeof InventorsSlugRoute
 }
@@ -95,7 +135,12 @@ export interface FileRoutesById {
   '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
   '/inventors': typeof InventorsRouteWithChildren
+  '/journal': typeof JournalRoute
+  '/privacy': typeof PrivacyRoute
+  '/refund-policy': typeof RefundPolicyRoute
+  '/shipping': typeof ShippingRoute
   '/shop': typeof ShopRoute
+  '/terms': typeof TermsRoute
   '/timeline': typeof TimelineRoute
   '/inventors/$slug': typeof InventorsSlugRoute
 }
@@ -108,7 +153,12 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/contact'
     | '/inventors'
+    | '/journal'
+    | '/privacy'
+    | '/refund-policy'
+    | '/shipping'
     | '/shop'
+    | '/terms'
     | '/timeline'
     | '/inventors/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -119,7 +169,12 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/contact'
     | '/inventors'
+    | '/journal'
+    | '/privacy'
+    | '/refund-policy'
+    | '/shipping'
     | '/shop'
+    | '/terms'
     | '/timeline'
     | '/inventors/$slug'
   id:
@@ -130,7 +185,12 @@ export interface FileRouteTypes {
     | '/checkout'
     | '/contact'
     | '/inventors'
+    | '/journal'
+    | '/privacy'
+    | '/refund-policy'
+    | '/shipping'
     | '/shop'
+    | '/terms'
     | '/timeline'
     | '/inventors/$slug'
   fileRoutesById: FileRoutesById
@@ -142,7 +202,12 @@ export interface RootRouteChildren {
   CheckoutRoute: typeof CheckoutRoute
   ContactRoute: typeof ContactRoute
   InventorsRoute: typeof InventorsRouteWithChildren
+  JournalRoute: typeof JournalRoute
+  PrivacyRoute: typeof PrivacyRoute
+  RefundPolicyRoute: typeof RefundPolicyRoute
+  ShippingRoute: typeof ShippingRoute
   ShopRoute: typeof ShopRoute
+  TermsRoute: typeof TermsRoute
   TimelineRoute: typeof TimelineRoute
 }
 
@@ -190,11 +255,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InventorsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/journal': {
+      id: '/journal'
+      path: '/journal'
+      fullPath: '/journal'
+      preLoaderRoute: typeof JournalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/refund-policy': {
+      id: '/refund-policy'
+      path: '/refund-policy'
+      fullPath: '/refund-policy'
+      preLoaderRoute: typeof RefundPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shipping': {
+      id: '/shipping'
+      path: '/shipping'
+      fullPath: '/shipping'
+      preLoaderRoute: typeof ShippingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/shop': {
       id: '/shop'
       path: '/shop'
       fullPath: '/shop'
       preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/timeline': {
@@ -233,7 +333,12 @@ const rootRouteChildren: RootRouteChildren = {
   CheckoutRoute: CheckoutRoute,
   ContactRoute: ContactRoute,
   InventorsRoute: InventorsRouteWithChildren,
+  JournalRoute: JournalRoute,
+  PrivacyRoute: PrivacyRoute,
+  RefundPolicyRoute: RefundPolicyRoute,
+  ShippingRoute: ShippingRoute,
   ShopRoute: ShopRoute,
+  TermsRoute: TermsRoute,
   TimelineRoute: TimelineRoute,
 }
 export const routeTree = rootRouteImport
